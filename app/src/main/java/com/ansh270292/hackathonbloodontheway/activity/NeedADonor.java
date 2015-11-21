@@ -8,15 +8,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.ansh270292.hackathonbloodontheway.R;
+import com.ansh270292.hackathonbloodontheway.adapter.CustomList;
+import com.ansh270292.hackathonbloodontheway.model.JSONParser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URL;
+import java.util.HashMap;
 
 /**
  * Created by Ansh on 11/21/2015.
  */
 public class NeedADonor extends Fragment {
+
+    public static final String JSON_URL = "http://ldentalpolyclinic.com/test/php/fetchnearbydonors.php";
+    private ListView listView,lv;
+
     public NeedADonor() {
         // Required empty public constructor
     }
@@ -27,11 +51,22 @@ public class NeedADonor extends Fragment {
 
     }
     String item;
+    Button getdonors;
+    EditText editText;
+    LinearLayout tohide,toshow;
+    String requested_pin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_need_a_donor, container, false);
+
+        getdonors = (Button)rootView.findViewById(R.id.btnget);
+        editText = (EditText)rootView.findViewById(R.id.pincode);
+        listView = (ListView)rootView.findViewById(R.id.listView);
+        tohide = (LinearLayout)rootView.findViewById(R.id.hide_when_list);
+        toshow = (LinearLayout)rootView.findViewById(R.id.toshow);
+
         Spinner spinner = (Spinner)rootView.findViewById(R.id.bldgrpspinner);
         ArrayAdapter<CharSequence> pageAdapter = new ArrayAdapter<CharSequence>(
                 getActivity(), android.R.layout.simple_spinner_item);
@@ -61,6 +96,26 @@ public class NeedADonor extends Fragment {
 
 
         });
+
+        getdonors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requested_pin = editText.getText().toString();
+                if(item.length()>6){
+                    Toast.makeText(getActivity(),"Choose A valid Blood Group",Toast.LENGTH_LONG).show();
+
+                }
+                if(requested_pin.length() == 0 || requested_pin.length()>6){
+                    Toast.makeText(getActivity(),"Wrong Pin..Enter A Valid Pin",Toast.LENGTH_LONG).show();
+                    editText.setText("");
+                }else{
+                    tohide.setVisibility(View.GONE);
+                    toshow.setVisibility(View.VISIBLE);
+                    fetchResult();
+                }
+            }
+        });
+
         return rootView;
     }
 
@@ -73,4 +128,39 @@ public class NeedADonor extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
+public void fetchResult(){
+    sendRequest();
+}
+
+    private void sendRequest(){
+
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("zip",requested_pin);
+        params.put("blood",item);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,JSON_URL,new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                showJSON(response);
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
+    }
+
+    private void showJSON(String json){
+        JSONParser pj = new JSONParser(json);
+        pj.JSONParser();
+        CustomList cl = new CustomList(getActivity(), JSONParser.mobile,JSONParser.names,JSONParser.address,JSONParser.age);
+        listView.setAdapter(cl);
+
+    }
+
 }

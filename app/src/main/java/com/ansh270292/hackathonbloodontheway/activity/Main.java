@@ -1,5 +1,6 @@
 package com.ansh270292.hackathonbloodontheway.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -87,7 +88,11 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 break;
             case 2:
                 fragment = new NeedADonor();
-                title = getString(R.string.title_home);
+                title = getString(R.string.title_need_a_donor);
+                break;
+            case 3:
+                Intent intent = new Intent(Main.this,MapsActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

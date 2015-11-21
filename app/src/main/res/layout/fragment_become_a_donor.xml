@@ -30,7 +30,7 @@ android:gravity="center"
             android:textColorHint="#bbbbbb"
             />
         <EditText
-            android:id="@+id/etSchoolName"
+            android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_default_bg"
@@ -40,7 +40,7 @@ android:gravity="center"
             android:textColorHint="#bbbbbb"
             />
         <EditText
-            android:id="@+id/etSchoolAddress"
+            android:id="@+id/etage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_default_bg"
@@ -50,7 +50,7 @@ android:gravity="center"
             android:textColorHint="#bbbbbb"
             />
         <EditText
-            android:id="@+id/etlandline"
+            android:id="@+id/etAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_default_bg"
@@ -59,8 +59,33 @@ android:gravity="center"
             android:hint="Address"
             android:textColorHint="#bbbbbb"
             />
+        <LinearLayout
+            android:id="@+id/date1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+
+
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/editdob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date Of Birth:"
+                android:paddingTop="10dp"
+                android:paddingLeft="5dp"
+                android:textSize="20dp"
+                android:textColor="#bbbbbb"/>
+            <TextView
+                android:id="@+id/tveditdob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="        Tap Here"
+                android:textSize="20dp"
+                android:textColor="#bbbbbb"/>
+        </LinearLayout>
         <EditText
-            android:id="@+id/ohours"
+            android:id="@+id/etpostalcode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_default_bg"
