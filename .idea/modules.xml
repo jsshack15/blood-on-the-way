@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/HackathonBloodOnTheWay.iml" filepath="$PROJECT_DIR$/HackathonBloodOnTheWay.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />
+      <module fileurl="file://$PROJECT_DIR$/volley1/volley1.iml" filepath="$PROJECT_DIR$/volley1/volley1.iml" />
     </modules>
   </component>
 </project>

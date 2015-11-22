@@ -19,7 +19,7 @@ public class CustomList extends ArrayAdapter<String> {
     private String[] names;
     private String[] addresses;
     private String[] mobile;
-    private String[] age;
+    private String[] ages;
     private Activity context;
 
     public CustomList(Activity context, String[] mobile, String[] names, String[] address,String[] age) {
@@ -28,7 +28,7 @@ public class CustomList extends ArrayAdapter<String> {
         this.mobile = mobile;
         this.names = names;
         this.addresses = address;
-        this.age = age;
+        this.ages = age;
     }
 
 
@@ -44,7 +44,7 @@ public class CustomList extends ArrayAdapter<String> {
         textViewMobile.setText(mobile[position]);
         textViewName.setText(names[position]);
         textViewAdress.setText(addresses[position]);
-        textViewAge.setText(age[position]);
+        textViewAge.setText(ages[position]);
 
         return listViewItem;
     }

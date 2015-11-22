@@ -14,10 +14,11 @@ public class JSONParser {
     public static final String KEY_ADDRESS = "address";
     public static final String KEY_AGE = "age";
 
+
     public static String[] mobile;
     public static String[] names;
     public static String[] address;
-    public static String[] age;
+    public static String[] ages;
 
     private JSONArray users = null;
 
@@ -36,14 +37,14 @@ public class JSONParser {
             mobile = new String[users.length()];
             names = new String[users.length()];
             address = new String[users.length()];
-            age = new String[users.length()];
+            ages = new String[users.length()];
 
             for(int i=0;i<users.length();i++){
                 JSONObject jo = users.getJSONObject(i);
                 mobile[i] = jo.getString(KEY_MOBILE);
                 names[i] = jo.getString(KEY_NAME);
                 address[i] = jo.getString(KEY_ADDRESS);
-                age[i] = jo.getString(KEY_AGE);
+                ages[i] = jo.getString(KEY_AGE);
             }
         } catch (JSONException e) {
             e.printStackTrace();

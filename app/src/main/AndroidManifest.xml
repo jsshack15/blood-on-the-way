@@ -8,11 +8,11 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <permission
-        android:name="com.ansh270292.ansh.bloodontheway.permission.MAPS_RECEIVE"
+        android:name="com.ansh270292.hackathonbloodontheway.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.ansh270292.ansh.bloodontheway.permission.MAPS_RECEIVE" />
-
+    <uses-permission android:name="com.ansh270292.hackathonbloodontheway.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"

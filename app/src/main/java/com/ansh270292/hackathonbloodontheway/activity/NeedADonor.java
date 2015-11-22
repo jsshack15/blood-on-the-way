@@ -1,6 +1,10 @@
 package com.ansh270292.hackathonbloodontheway.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,8 +17,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,19 +32,22 @@ import com.android.volley.toolbox.Volley;
 import com.ansh270292.hackathonbloodontheway.R;
 import com.ansh270292.hackathonbloodontheway.adapter.CustomList;
 import com.ansh270292.hackathonbloodontheway.model.JSONParser;
+import com.ansh270292.hackathonbloodontheway.model.RegisterUserClass;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Ansh on 11/21/2015.
  */
 public class NeedADonor extends Fragment {
 
-    public static final String JSON_URL = "http://ldentalpolyclinic.com/test/php/fetchnearbydonors.php";
+    public static final String JSON_URL = "http://ldentalpolyclinic.com/test/php/fetch.php";
     private ListView listView,lv;
 
     public NeedADonor() {
@@ -55,6 +64,7 @@ public class NeedADonor extends Fragment {
     EditText editText;
     LinearLayout tohide,toshow;
     String requested_pin;
+    TextView tv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +73,23 @@ public class NeedADonor extends Fragment {
 
         getdonors = (Button)rootView.findViewById(R.id.btnget);
         editText = (EditText)rootView.findViewById(R.id.pincode);
+
         listView = (ListView)rootView.findViewById(R.id.listView);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+                Toast.makeText(getActivity(),"YOU",Toast.LENGTH_LONG).show();
+
+                String smobile = ((TextView)view.findViewById(R.id.donormobile)).getText().toString();
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:"+smobile));
+                startActivity(callIntent);
+
+            }
+        });
+        tv = (TextView)rootView.findViewById(R.id.fechingresult);
+
         tohide = (LinearLayout)rootView.findViewById(R.id.hide_when_list);
         toshow = (LinearLayout)rootView.findViewById(R.id.toshow);
 
@@ -128,39 +154,50 @@ public class NeedADonor extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
-public void fetchResult(){
-    sendRequest();
-}
 
-    private void sendRequest(){
+public void fetchResult() {
 
-        HashMap<String, String> params = new HashMap<String, String>();
+
+
+    JSONObject params = new JSONObject();
+    try {
         params.put("zip",requested_pin);
-        params.put("blood",item);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,JSON_URL,new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                showJSON(response);
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(stringRequest);
+        params.put("bloodgrp",item);
+    } catch (JSONException e) {
+        e.printStackTrace();
     }
+
+    JsonObjectRequest req = new JsonObjectRequest(JSON_URL,params,
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        VolleyLog.v("Response:%n %s", response.toString(4));
+                        Toast.makeText(getActivity(),"Success",Toast.LENGTH_LONG).show();
+                        showJSON(response.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            VolleyLog.e("Error: ", error.getMessage());
+        }
+    });
+
+    RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+    requestQueue.add(req);
+
+}
 
     private void showJSON(String json){
         JSONParser pj = new JSONParser(json);
         pj.JSONParser();
-        CustomList cl = new CustomList(getActivity(), JSONParser.mobile,JSONParser.names,JSONParser.address,JSONParser.age);
+        CustomList cl = new CustomList(getActivity(), JSONParser.mobile,JSONParser.names,JSONParser.address,JSONParser.ages);
         listView.setAdapter(cl);
 
+        tv.setVisibility(View.INVISIBLE);
     }
 
 }

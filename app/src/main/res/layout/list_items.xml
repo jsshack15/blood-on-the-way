@@ -23,30 +23,26 @@ android:background="#fff"
         android:id="@+id/donorname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="6dip"
-        android:paddingLeft="6dip"
+
         android:textSize="17dip"
        
         android:text="NAME:"
         android:textColor="#000000"/>
-
         <TextView
             android:id="@+id/donorage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="6dip"
-            android:paddingLeft="6dip"
+
             android:textSize="17dip"
-             
-            android:text="age"
+
+            android:text="NAME:"
             android:textColor="#000000"/>
- 
-    <TextView
+
+        <TextView
         android:id="@+id/donormobile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="6dip"
-        android:paddingLeft="6dip"
+
         android:textSize="17dip"
        
         android:text="mobile"
@@ -55,23 +51,16 @@ android:background="#fff"
             android:id="@+id/donoraddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="6dip"
-            android:paddingLeft="6dip"
+
             android:textSize="17dip"
            
             android:text="address"
             android:textColor="#000000"/>
+
     </LinearLayout>
 
 
   
 </LinearLayout>
-<ImageButton
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:src="@drawable/phone"
-    android:id="@+id/calling"
-    android:layout_alignParentTop="true"
-    android:layout_toRightOf="@+id/linearlay"
-    android:layout_alignBottom="@+id/linearlay" />
+
 </RelativeLayout>
