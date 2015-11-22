@@ -5,7 +5,13 @@
     android:orientation="vertical"
     tools:context="info.androidhive.materialdesign.activity.HomeFragment"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:paddingRight="10dp"
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/url"
+        android:alpha=".2"></LinearLayout>
 
 
     <TextView

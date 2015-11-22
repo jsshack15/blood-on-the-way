@@ -10,6 +10,7 @@
     <string name="nav_item_friends">Become A Donor</string>
     <string name="nav_item_notifications">Need A Donor</string>
     <string name="nav_item_find_nearby">Find Near By</string>
+    <string name="nav_item_things">Things One Should Know</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
@@ -17,11 +18,13 @@
         <item>@string/nav_item_friends</item>
         <item>@string/nav_item_notifications</item>
         <item>@string/nav_item_find_nearby</item>
+        <item>@string/nav_item_things</item>
+
     </string-array>
 
 
     <string name="title_need_a_donor">Need A Donor</string>
     <string name="title_become_a_donor">Become A Donor</string>
     <string name="title_home">Home</string>
-    
+    <string name="title_things">Things One should Know</string>
 </resources>

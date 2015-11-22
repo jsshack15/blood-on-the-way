@@ -94,6 +94,9 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 Intent intent = new Intent(Main.this,MapsActivity.class);
                 startActivity(intent);
                 break;
+            case 4:
+                fragment = new ThingsToKnow();
+                title = getString(R.string.title_things);
             default:
                 break;
         }
