@@ -38,7 +38,6 @@ public class JSONParser {
             names = new String[users.length()];
             address = new String[users.length()];
             ages = new String[users.length()];
-
             for(int i=0;i<users.length();i++){
                 JSONObject jo = users.getJSONObject(i);
                 mobile[i] = jo.getString(KEY_MOBILE);

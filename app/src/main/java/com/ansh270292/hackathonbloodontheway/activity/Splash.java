@@ -27,20 +27,22 @@ public class Splash extends Activity {
             @Override
             public void run() {
                 try {
-                    sleep(2000);
+                    sleep(500);
                 }catch (InterruptedException e) {
                     e.printStackTrace();
                 }finally {
                     Intent intent = new Intent(Splash.this,Main.class);
-
                     startActivity(intent);
                 }
             }
         };
+        th.start();
     }
 
 
-
-
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 }

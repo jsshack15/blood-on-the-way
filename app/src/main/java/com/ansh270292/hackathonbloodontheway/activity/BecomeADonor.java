@@ -49,7 +49,7 @@ public class BecomeADonor extends Fragment {
     Button btnRegister;
     EditText etmobile,etname,etage,etaddress,postalCode;
     String mobile,name,age,address,postal;
-
+    int flag_correct=0;
     private static final String REGISTER_URL = "http://ldentalpolyclinic.com/test/php/getdonors.php";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,6 +77,7 @@ public class BecomeADonor extends Fragment {
 
             }
         });
+
 btnRegister = (Button)rootView.findViewById(R.id.btnregister);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,21 +90,28 @@ btnRegister = (Button)rootView.findViewById(R.id.btnregister);
                 if(mobile.equals("") || mobile.length()<10){
                     raisetoast();
                     etmobile.setText("");
-                }
+                    flag_correct=1;
+                }else{flag_correct=0;}
                 if(name.equals("")){
                     raisetoast();
-                }
+                    flag_correct=1;
+                }else if(flag_correct ==1){}else{flag_correct=0;}
                 if(age.equals("")){
                     raisetoast();
-                }
+                    flag_correct=1;
+                }else if(flag_correct ==1){}else{flag_correct=0;}
                 if(address.equals("")){
                     raisetoast();
-                }
+                    flag_correct=1;
+                }else if(flag_correct ==1){}else{flag_correct=0;}
                 if(postal.equals("") || postal.length()<6){
                     raisetoast();
+                    flag_correct=1;
                     postalCode.setText("");
+                }else if(flag_correct ==1){}else{flag_correct=0;}
+                if(flag_correct==0) {
+                    registerUser();
                 }
-                registerUser();
             }
         });
         Spinner spinner = (Spinner)rootView.findViewById(R.id.bloodgroupspinner);

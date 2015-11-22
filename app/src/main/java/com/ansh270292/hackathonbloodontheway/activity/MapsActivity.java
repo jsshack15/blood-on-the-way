@@ -6,8 +6,12 @@ import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.ansh270292.hackathonbloodontheway.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -23,11 +27,12 @@ public class MapsActivity extends FragmentActivity implements android.location.L
 
     private static final String GOOGLE_API_KEY = "AIzaSyDPjHVZneI8J5Xg2RgZ2QKFXrKaVbSNRMY";
     GoogleMap googleMap;
-    EditText placeText;
+
     double latitude = 0;
     double longitude = 0;
     private int PROXIMITY_RADIUS = 5000;
     Button btnFind;
+    String item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,38 @@ public class MapsActivity extends FragmentActivity implements android.location.L
             finish();
         }
         setContentView(R.layout.activity_maps);
-        placeText = (EditText) findViewById(R.id.etplace);
+        Spinner spinner = (Spinner)findViewById(R.id.places);
+        ArrayAdapter<CharSequence> pageAdapter = new ArrayAdapter<CharSequence>(
+                getApplicationContext(), android.R.layout.simple_spinner_item);
+        pageAdapter.add("--Select--");
+        pageAdapter.add("Airport");
+        pageAdapter.add("Atm");
+        pageAdapter.add("Hospital");
+        pageAdapter.add("Dentist");
+        pageAdapter.add("Doctor");
+        pageAdapter.add("Food");
+        pageAdapter.add("Pharmacy");
+        pageAdapter.add("Police");
+        pageAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
+        spinner.setAdapter(pageAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                item = parent.getItemAtPosition(position).toString().toLowerCase();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                Toast.makeText(getApplicationContext(), "Select Required Place to locate", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+        });
+
         btnFind = (Button) findViewById(R.id.btnfindloc);
         SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         googleMap = fragment.getMap();
@@ -52,11 +88,12 @@ public class MapsActivity extends FragmentActivity implements android.location.L
         btnFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String type = placeText.getText().toString().toLowerCase();
+
+                Toast.makeText(getApplicationContext(),"Fetching nearby "+item+" please wait..",Toast.LENGTH_LONG).show();
                 StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 googlePlacesUrl.append("location=" + latitude + "," + longitude);
                 googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
-                googlePlacesUrl.append("&types=" + type);
+                googlePlacesUrl.append("&types=" + item);
                 googlePlacesUrl.append("&sensor=true");
                 googlePlacesUrl.append("&key=" + GOOGLE_API_KEY);
 

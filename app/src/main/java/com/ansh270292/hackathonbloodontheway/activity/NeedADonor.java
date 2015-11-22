@@ -47,7 +47,7 @@ import java.util.Map;
  */
 public class NeedADonor extends Fragment {
 
-    public static final String JSON_URL = "http://ldentalpolyclinic.com/test/php/fetch.php";
+    String JSON_URL = "http://ldentalpolyclinic.com/test/php/fetch.php";
     private ListView listView,lv;
 
     public NeedADonor() {
@@ -79,7 +79,7 @@ public class NeedADonor extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-                Toast.makeText(getActivity(),"YOU",Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getActivity(),"YOU",Toast.LENGTH_LONG).show();
 
                 String smobile = ((TextView)view.findViewById(R.id.donormobile)).getText().toString();
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -166,14 +166,16 @@ public void fetchResult() {
     } catch (JSONException e) {
         e.printStackTrace();
     }
-
+    if(requested_pin.startsWith("20130")){
+        JSON_URL = "http://ldentalpolyclinic.com/test/php/fetchnearbydonors.php";
+    }
     JsonObjectRequest req = new JsonObjectRequest(JSON_URL,params,
             new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
                         VolleyLog.v("Response:%n %s", response.toString(4));
-                        Toast.makeText(getActivity(),"Success",Toast.LENGTH_LONG).show();
+                     //   Toast.makeText(getActivity(),"Success",Toast.LENGTH_LONG).show();
                         showJSON(response.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();

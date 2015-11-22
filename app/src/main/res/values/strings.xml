@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hackathon Blood On The Way</string>
+    <string name="app_name">Blood On The Way</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
@@ -19,7 +19,8 @@
         <item>@string/nav_item_find_nearby</item>
     </string-array>
 
-    <string name="title_need_a_donor">Neead A Donor</string>
+
+    <string name="title_need_a_donor">Need A Donor</string>
     <string name="title_become_a_donor">Become A Donor</string>
     <string name="title_home">Home</string>
     

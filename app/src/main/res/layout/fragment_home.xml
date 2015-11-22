@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="info.androidhive.materialdesign.activity.HomeFragment">
+    tools:context="info.androidhive.materialdesign.activity.HomeFragment"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
 
     <TextView
@@ -14,7 +16,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textSize="45dp"
-        android:text="HOME"
+        android:text="You R Here"
         android:textStyle="bold"/>
 
     <TextView
@@ -22,10 +24,21 @@
         android:layout_centerInParent="true"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="12dp"
+        android:textSize="22dp"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:id="@+id/yourlocation"
+        android:textColor="#000"
         android:text="Edit fragment_home.xml to change the appearance" />
+    <TextView
+        android:id="@+id/label55"
 
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/yourlocation"
+        android:textSize="35dp"
+        android:text="Open Drawer For Options"
+        android:textStyle="bold"/>
 </RelativeLayout>
